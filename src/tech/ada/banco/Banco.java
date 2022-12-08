@@ -6,6 +6,9 @@ package tech.ada.banco;
 // gerente
 //pessoa
 
+import tech.ada.banco.model.Pessoa;
+import tech.ada.banco.utils.LeitorTeclado;
+
 import java.util.Scanner;
 
 /**
@@ -22,14 +25,19 @@ public class Banco {
 
         System.out.println("Bem vindo ao Banco Ada");
 
-        Pessoa pessoa1 = new Pessoa("Kassia","23/12/1975","25199199433","1199468051");
+        LeitorTeclado teclado = new LeitorTeclado();
+        int cpf = teclado.getNumero("Digite seu CPF: ");
+
+        Pessoa pessoa1 = new Pessoa("Kassia","1975-12-23","25199199433","1199468051");
 
         //pessoa1 = getNome();
 
-        System.out.println("O nome da pessoa1 é " + pessoa1.nome);
-        System.out.println("A data de nascimento da pessoa1 é  " + pessoa1.dataNascimento);
-        System.out.println("O CPF da pessoa1 é " + pessoa1.cpf);
-        System.out.println("O telefone da pessoa1 é " + pessoa1.telefone);
+        System.out.println("O nome da pessoa1 é " + pessoa1.getNome());
+        System.out.println("A data de nascimento da pessoa1 é  " + pessoa1.getDataNascimento());
+        System.out.println("O CPF da pessoa1 é " + pessoa1.getCpf());
+        System.out.println("O telefone da pessoa1 é " + pessoa1.getTelefone());
+
+        System.out.println(pessoa1.toString());
 
     }
 
@@ -40,3 +48,12 @@ public class Banco {
     }
 
 }
+
+//  como eu já havia feito com get e set eu alterei meu get pra retornar uma String formatada.
+//      public String getDataNascimento() {
+ //       return
+//       dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+ //
+//     Dessa forma:
+//  this(nome, LocalDate.parse(dataNascimento,DateTimeFormatter.ofPattern("dd/MM/yyyy")), cpf);
+//  Nesse caso você tá convertendo para a String enviada dentro do seu construtor e armazenando no formato que o LocalDate aceite
