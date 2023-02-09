@@ -1,15 +1,12 @@
 package tech.ada.banco;
-
-//menu
-//conta
-//cliente
+// menu
+// conta
+// cliente
 // gerente
-//pessoa
+// pessoa
 
-import tech.ada.banco.model.Pessoa;
+import tech.ada.banco.services.*;
 import tech.ada.banco.utils.LeitorTeclado;
-
-import java.util.Scanner;
 
 /**
  * Sacar dinheiro
@@ -22,38 +19,66 @@ import java.util.Scanner;
 public class Banco {
 
     public static void main(String[] args) {
+        System.out.println("Bem vindo ao banco Ada.");
+        Pix pix = new Pix();
+        Deposito deposito = new Deposito();
+        boolean ligado = true;
+        while (ligado) {
+            menu();
+            int opcao = LeitorTeclado.getNumero("Digite uma das opções.");
+            switch (opcao) {
+                case 0:
+                    System.out.println("O programa será finalizado. Te vejo depois!");
+                    ligado = false;
+                    break;
 
-        System.out.println("Bem vindo ao Banco Ada");
+                case 1:
+                    AberturaDeConta.executar();
+                    break;
 
-        LeitorTeclado teclado = new LeitorTeclado();
-        int cpf = teclado.getNumero("Digite seu CPF: ");
+                case 2:
+                    deposito.executar();
+                    break;
 
-        Pessoa pessoa1 = new Pessoa("Kassia","1975-12-23","25199199433","1199468051");
+                case 3:
+                    Saque.executar();
+                    break;
 
-        //pessoa1 = getNome();
+                case 4:
+                    pix.transferirDinheiro();
+                    break;
 
-        System.out.println("O nome da pessoa1 é " + pessoa1.getNome());
-        System.out.println("A data de nascimento da pessoa1 é  " + pessoa1.getDataNascimento());
-        System.out.println("O CPF da pessoa1 é " + pessoa1.getCpf());
-        System.out.println("O telefone da pessoa1 é " + pessoa1.getTelefone());
+                case 5:
+                    MostrarSaldo.executar();
+                    break;
 
-        System.out.println(pessoa1.toString());
-
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+        }
     }
 
-    private static String getNome() {
-        Scanner entrada = new Scanner(System.in);
-        System.out.println("Digite um nome ");
-        return entrada.nextLine();
-    }
+    private static void menu() {
+        System.out.println("Escolha uma das opções abaixo.");
+        System.out.println("0 - Para Encerrar.");
+        System.out.println("1 - Para abrir uma conta.");
+        System.out.println("2 - Para depositar um valor.");
+        System.out.println("3 - Para retirar um valor.");
+        System.out.println("4 - Para realizar uma transferência via PIX.");
+        System.out.println("5 - Obter saldo da conta.");
 
+    }
 }
 
-//  como eu já havia feito com get e set eu alterei meu get pra retornar uma String formatada.
+
+
+//      Estudo de como formatar uma data
+//      como eu já havia feito com get e set eu alterei meu get pra retornar uma String formatada.
 //      public String getDataNascimento() {
- //       return
-//       dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
- //
-//     Dessa forma:
-//  this(nome, LocalDate.parse(dataNascimento,DateTimeFormatter.ofPattern("dd/MM/yyyy")), cpf);
-//  Nesse caso você tá convertendo para a String enviada dentro do seu construtor e armazenando no formato que o LocalDate aceite
+//      return
+//      dataNascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+//
+//      Dessa forma:
+//      this(nome, LocalDate.parse(dataNascimento,DateTimeFormatter.ofPattern("dd/MM/yyyy")), cpf);
+//      Nesse caso você tá convertendo para a String enviada dentro do seu construtor e armazenando no formato que o LocalDate aceite
